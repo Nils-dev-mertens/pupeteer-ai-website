@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Config</title>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
@@ -12,12 +14,12 @@
             <div class="product-input">
                 <h1>Product input</h1>
                 <input type="text" name="product" id="" class="text-input">
-                <input type="button" value="Add Product" onclick="ClickProduct()">
+                <input type="button" value="Add Product" onclick="ClickProduct()" class="btn">
             </div>
             <div class="website-input">
                 <h1>Website input</h1>
                 <input type="text" name="website" id="" class="text-input">
-                <input type="button" value="Add website" onclick="ClickWebsite()">
+                <input type="button" value="Add website" onclick="ClickWebsite()" class="btn">
             </div>
             <div class="product-website-input">
                 <h1>Tracking</h1>
@@ -29,7 +31,14 @@
                 <select id="websiteinput" name="websitelistinput">
 
                 </select>
+                
                 <input type="button" value="Add Tracking" onclick="">
+            </div>
+            <div class="delete-database-input">
+                <h1>Reset the database</h1>
+                <p>type "Reset database" and submit to reset the database</p>
+                <input type="text" name="reset" id="" class="text-input">
+                <button type="button" class="btn-danger">Confirm</button>
             </div>
         </div>
         <div class="show">

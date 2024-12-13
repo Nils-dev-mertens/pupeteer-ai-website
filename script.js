@@ -96,4 +96,12 @@ function sendwebsite(name) {
         console.log("Error from Server:", error);
       });
 }
+document.querySelector(".delete-database-input .text-input").addEventListener("input", (event) => {
+  if(event.target.value === "Reset database"){
+    document.querySelector(".delete-database-input .btn-danger").onclick = function() {ResetDatabase()};
+  }
+});
+async function ResetDatabase() {
+  fetch("http://localhost:3000/ResetDatabase");
+};
 start();

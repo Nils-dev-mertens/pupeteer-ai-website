@@ -1,6 +1,7 @@
 async function main() {
     const data = await fetch("http://localhost:3000/table");
     const json = await data.json();
+    document.querySelector(".show").innerHTML = "";
     json.forEach(element => {
         CreateProduct(element);
     });
@@ -46,7 +47,7 @@ function CreateOptionsWebsite(value) {
 document.getElementById("websiteinput").innerHTML += `<option value="${value.Id}">${value.Naam}</option>`;
 }
 function CreateProduct(element) {
-    document.querySelector(".show").innerHTML += `<h1>${element.ProductName}</h1><p>${element.prijs}</p><p>${element.WebsiteName}</p><a href="${element.URL}" target="_blank">${element.URL}</a>`;
+    document.querySelector(".show").innerHTML += `<h1>${element.ProductName}</h1><p>${element.WebsiteName}</p><a href="${element.URL}" target="_blank">${element.URL}</a>`;
 }
 function ClickProduct() {
   sendproduct(document.querySelector(".product-input .text-input").value);
@@ -54,6 +55,12 @@ function ClickProduct() {
 function ClickWebsite() {
   const value = document.querySelector(".website-input .text-input").value;
   sendwebsite(value);
+}
+function ClickProductOpWebsite() {
+  SendProductOpWebsite(document.querySelector(".product-website-input #productinput").value,document.querySelector(".product-website-input #websiteinput").value,document.querySelector(".product-website-input .ProductOnWebsiteUrl").value);
+}
+function ClickRecord() {
+  SendRecord(document.querySelector(".record-input .id-productopwebsite").value, document.querySelector(".record-input .prijs").value);
 }
 function sendproduct(name) {
     const data = {
@@ -95,6 +102,50 @@ function sendwebsite(name) {
       }).catch(error => {
         console.log("Error from Server:", error);
       });
+}
+function SendProductOpWebsite(IdProduct, IdWebsite, URLWebsite) {
+  const data = {
+      "IdProduct" : IdProduct,
+      "IdWebsite" : IdWebsite,
+      "UrlProductOpWebsite" : URLWebsite
+    };
+    console.log(data);
+    fetch("http://localhost:3000/ProductOpWebsite", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(response => {
+      console.log("Response from Server:", response);
+      if(response.ok == true){
+        console.log("Productopwebsite added to Database");
+        main();
+      }
+    }).catch(error => {
+      console.log("Error from Server:", error);
+    });
+}
+function SendRecord(IdProductOnWebsite, Prijs) {
+  const data = {
+      "IdProductOnWebsite" : IdProductOnWebsite,
+      "Prijs" : Prijs,
+    };
+    fetch("http://localhost:3000/record", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }).then(response => {
+      console.log("Response from Server:", response);
+      if(response.ok == true){
+        console.log("Record added to Database");
+        main();
+      }
+    }).catch(error => {
+      console.log("Error from Server:", error);
+    });
 }
 document.querySelector(".delete-database-input .text-input").addEventListener("input", (event) => {
   if(event.target.value === "Reset database"){
